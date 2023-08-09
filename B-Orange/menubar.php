@@ -11,6 +11,8 @@
             <div class="d-none d-lg-block">
                 <form action="products.php" method="get" class="d-flex">
                     <input type="search" name="Search" class="form-control" placeholder="Search">
+                    <input type="radio" name="algo" value="BM" checked>Boyer Moore</input>
+                    <input type="radio" name="algo" value="LS">Linear Search</input>
                     <input type="submit" value="Search" class="btn">
                 </form>
             </div>

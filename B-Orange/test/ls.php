@@ -9,6 +9,7 @@ function linearSearch($text,$pattern){
     while($index <= $textLength - $patternLength){
         $totalMatched = 0;
         while($totalMatched <= ($patternLength-1) && $pattern[$totalMatched] == $text[$index+$totalMatched]){
+            echo $text[$index+$totalMatched].'<br>';
             $totalMatched++;
         }
 
@@ -19,23 +20,6 @@ function linearSearch($text,$pattern){
             $index++;
         }
     }
-
-    /* Token
-    #search
-    $currentWord = strtok($text," ");
-    $m = strlen($pattern);  //pattern length
-    while($currentWord != false){
-        $n = strlen($currentWord);
-        $match = true;
-        for($i = 0; $i < $m; $i++){
-            if($n != $m || $currentWord[$i] != $pattern[$i]){
-                $match = false;
-            }
-        }
-        if($match) return true;
-        $currentWord = strtok(" ");
-    }
-    */
     return false;
 }
 

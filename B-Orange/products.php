@@ -17,8 +17,6 @@
 
 <!-- Read Data -->
 <?php
-include_once 'readjason.php';
-
 #Boyer's Moore Algorithm
 ############################################################
 #                                                          #
@@ -93,6 +91,20 @@ function linearSearch($text, $pattern)
 #                                            #
 #                                            #
 ##############################################
+
+
+#Receive search form
+##############################################
+#                                            #
+#                                            #
+if(isset($_GET['Search'])){
+    $pattern = $_GET['Search'];
+    $displayall = false;
+    $algo = $_GET['algo'];
+}
+else{
+    $displayall = true;
+}
 ?>
 
 <body>
@@ -103,43 +115,86 @@ function linearSearch($text, $pattern)
 
     <div class="small-container">
         <div class="row row-2" id="productSpace">
-            <h2>All product / Searched Query:Display Execution Time</h2>
-            <select>
-                <option>Default Sort</option>
-                <option>Sort By Price</option>
-                <option>Sort By Popularity</option>
-                <option>Sort By Rating</option>
-                <option>Sort By Sale</option>
-            </select>
-
-
-
-            <!-- Display product -->
             <div class="row">
-                <!-- Fetch Data -->
                 <?php
-                #All Product
-                foreach ($products as $item) {
-                    $prod_name = $item['prod_name'];
-                    $prod_image = $item['prod_image'];
-                    $prod_price = $item['prod_price'];
-
-                    #Load Product
-                    echo '
-                    <div class="col-4">
-                        <a href="product_details.html"><img src="'.$prod_image.'"></a>
-                        <h4>'.$prod_name.'</h4>
-                        <p>RM '.$prod_price.'</p>
-                    </div>';
+                if($displayall){
+                    //Display all product
+                    include_once 'readjason.php';
+                    foreach ($products as $item) {
+                        $prod_name = $item['prod_name'];
+                        $prod_image = $item['prod_image'];
+                        $prod_price = $item['prod_price'];
+                        echo
+                        '
+                            <div class="card m-1" style="width: 15rem;float:left;">
+                                <div class ="image-container">
+                                    <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                                </div>
+                                <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
+                                    <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
+                                    <br>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">RM ' . $prod_price .'</p>
+                                </div>
+                            </div>
+                        ';
+                    }
                 }
+                else{
+                    $start_time = microtime(true)/1000;
+                    include_once 'readjason.php';
+                    foreach($products as $item){
+                        $prod_name = $item['prod_name'];
+                        $prod_desc = $item['prod_desc'];
+                        $prod_image = $item['prod_image'];
+                        $prod_price = $item['prod_price'];
+                        
+                        //Display Product
+                        if($algo == "BM" && boyerMoore($prod_name,$pattern) || boyerMoore($prod_desc,$pattern)){
+                            echo '
+                                <div class="card m-1" style="width: 15rem;float:left;">
+                                    <div class ="image-container">
+                                        <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                                    </div>
+                                    <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
+                                        <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
+                                        <br>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">RM ' . $prod_price . '</p>
+                                    </div>
+                                </div>
+                            ';
+                        }
+                        elseif($algo == "LS" && linearSearch($prod_name,$pattern)){
+                            echo '
+                                <div class="card m-1" style="width: 15rem;float:left;">
+                                    <div class ="image-container">
+                                        <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                                    </div>
+                                    <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
+                                        <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
+                                        <br>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">RM ' . $prod_price . '</p>
+                                    </div>
+                                </div>
+                            ';
+                        }
+                    }
+                    $end_time = microtime(true)/1000;
+                    $execution_time = $end_time - $start_time;
+                    echo'
+                        <div class="row">
+                            Result Fetched in './*$execution_time.*/sprintf("%.20F",$execution_time).' Miliseconds using '.$algo.' Miliseconds
+                        </div>
+                        ';
+                }
+                
                 ?>
-                <div class="col-4">
-                    <a href="product_details.html"><img src="images/product-1.jpg"></a>
-                    <h4>Product Name</h4>
-                    <p>$50.00</p>
-                    <!-- col end -->
-                </div>
-                <!-- row end -->
+
             </div>
         </div>
         <!--    

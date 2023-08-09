@@ -283,6 +283,17 @@ select:focus{
     color: white;
 }
 
+.image-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-container img{
+    flex: 0 0 200px; /*set width*/
+    height: auto;
+    margin: 5px;
+}
+
 /* Single Product */
 .single-product{
     margin-top: 80px;
