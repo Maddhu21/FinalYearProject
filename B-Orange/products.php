@@ -103,15 +103,7 @@ function linearSearch($text, $pattern)
 
     <div class="small-container">
         <div class="row row-2" id="productSpace">
-            <div class="row">
-                <div class="col-4">
-                    <a href="product_details.html"><img src="images/product-1.jpg"></a>
-                    <h4>Product Name</h4>
-                    <p>$50.00</p>
-                </div>
-            </div>
-        </div>
-        <!--    <h2>All Products</h2>
+            <h2>All product / Searched Query:Display Execution Time</h2>
             <select>
                 <option>Default Sort</option>
                 <option>Sort By Price</option>
@@ -119,6 +111,38 @@ function linearSearch($text, $pattern)
                 <option>Sort By Rating</option>
                 <option>Sort By Sale</option>
             </select>
+
+
+
+            <!-- Display product -->
+            <div class="row">
+                <!-- Fetch Data -->
+                <?php
+                #All Product
+                foreach ($products as $item) {
+                    $prod_name = $item['prod_name'];
+                    $prod_image = $item['prod_image'];
+                    $prod_price = $item['prod_price'];
+
+                    #Load Product
+                    echo '
+                    <div class="col-4">
+                        <a href="product_details.html"><img src="'.$prod_image.'"></a>
+                        <h4>'.$prod_name.'</h4>
+                        <p>RM '.$prod_price.'</p>
+                    </div>';
+                }
+                ?>
+                <div class="col-4">
+                    <a href="product_details.html"><img src="images/product-1.jpg"></a>
+                    <h4>Product Name</h4>
+                    <p>$50.00</p>
+                    <!-- col end -->
+                </div>
+                <!-- row end -->
+            </div>
+        </div>
+        <!--    
         </div>
         
         <div class="row">
@@ -280,46 +304,7 @@ function linearSearch($text, $pattern)
         </div>-->
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col-1">
-                    <h3>Download Our App</h3>
-                    <p>Download App for Android and ios mobile phone.</p>
-                    <div class="app-logo">
-                        <img src="images/play-store.png">
-                        <img src="images/app-store.png">
-                    </div>
-                </div>
-                <div class="footer-col-2">
-                    <img src="images/logo-white.png">
-                    <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.
-                    </p>
-                </div>
-                <div class="footer-col-3">
-                    <h3>Useful Links</h3>
-                    <ul>
-                        <li>Coupons</li>
-                        <li>Blog Post</li>
-                        <li>Return Policy</li>
-                        <li>Join Affiliate</li>
-                    </ul>
-                </div>
-                <div class="footer-col-4">
-                    <h3>Follow Us</h3>
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Twitter</li>
-                        <li>Instagram</li>
-                        <li>Youtube</li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <p class="copyright">Copyright 2020 - Samwit Adhikary</p>
-        </div>
-    </div>
+    <?php include_once 'footer.php'; ?>
 
     <!-- javascript -->
 
