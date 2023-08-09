@@ -16,14 +16,15 @@
 </head>
 
 <!-- Read Data -->
-<?php 
-include_once 'readjason.php'; 
+<?php
+include_once 'readjason.php';
 
 #Boyer's Moore Algorithm
 ############################################################
 #                                                          #
 #                                                          #
-function boyerMoore($text,$pattern){
+function boyerMoore($text, $pattern)
+{
     #$Initialize variables
     $badChar = array();
     $textLength = strlen($text);
@@ -35,25 +36,23 @@ function boyerMoore($text,$pattern){
     }
 
     #Searching
-    $i = 0;    
+    $i = 0;
     while ($i <= $textLength - $patternLength) {
         $j = $patternLength - 1;
         while ($j >= 0 && $pattern[$j] == $text[$i + $j]) {
             $j--;
         }
-        
+
         if ($j < 0) {
             #Pattern found
             return true;
         } else {
             #Shifts
-            if(array_key_exists($text[$i + $j], $badChar)){
+            if (array_key_exists($text[$i + $j], $badChar)) {
                 $i += max(1, $j - $badChar[$text[$i + $j]]);
+            } else {
+                $i += ($patternLength - 1);
             }
-            else{
-                $i+= ($patternLength-1);
-            }
-            
         }
     }
 
@@ -69,23 +68,23 @@ function boyerMoore($text,$pattern){
 ##############################################
 #                                            #
 #                                            #
-function linearSearch($text,$pattern){
+function linearSearch($text, $pattern)
+{
     #Initialize Variables
     $textLength = strlen($text);
     $patternLength = strlen($pattern);
 
     #Search
     $index = 0;
-    while($index <= $textLength - $patternLength){
+    while ($index <= $textLength - $patternLength) {
         $totalMatched = 0;
-        while($totalMatched <= ($patternLength-1) && $pattern[$totalMatched] == $text[$index+$totalMatched]){
+        while ($totalMatched <= ($patternLength - 1) && $pattern[$totalMatched] == $text[$index + $totalMatched]) {
             $totalMatched++;
         }
 
-        if($totalMatched > ($patternLength-1)){
+        if ($totalMatched > ($patternLength - 1)) {
             return true;
-        }
-        else{
+        } else {
             $index++;
         }
     }
@@ -104,7 +103,13 @@ function linearSearch($text,$pattern){
 
     <div class="small-container">
         <div class="row row-2" id="productSpace">
-            
+            <div class="row">
+                <div class="col-4">
+                    <a href="product_details.html"><img src="images/product-1.jpg"></a>
+                    <h4>Product Name</h4>
+                    <p>$50.00</p>
+                </div>
+            </div>
         </div>
         <!--    <h2>All Products</h2>
             <select>
