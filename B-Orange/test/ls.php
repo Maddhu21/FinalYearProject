@@ -9,7 +9,6 @@ function linearSearch($text,$pattern){
     while($index <= $textLength - $patternLength){
         $totalMatched = 0;
         while($totalMatched <= ($patternLength-1) && $pattern[$totalMatched] == $text[$index+$totalMatched]){
-            echo $text[$index+$totalMatched].'<br>';
             $totalMatched++;
         }
 

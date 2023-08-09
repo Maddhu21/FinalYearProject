@@ -7,7 +7,7 @@ function boyerMoore($text, $pattern) {
 
     #Create Skip Table
     for ($i = 0; $i < $patternLength; $i++) {
-        $badChar[$pattern[$i]] = $i;
+        $badChar[$pattern[$i]] = max(1,($patternLength-1-$i));
     }
 
     #Searching
@@ -24,10 +24,10 @@ function boyerMoore($text, $pattern) {
         } else {
             #echo 'pattern not found<br>';
             if(array_key_exists($text[$i + $j], $badChar)){
-                $i += max(1, $j - $badChar[$text[$i + $j]]);
+                $i += $badChar[$text[$i + $j]];
             }
             else{
-                $i+= ($patternLength-1);
+                $i+= $patternLength;
             }
             
         }
