@@ -44,21 +44,11 @@ function boyerMoore($text, $pattern) {
 $start_time = microtime(true)/1000;
 $productJson = file_get_contents("products2.json");
 $products = json_decode($productJson, true);
-$pattern = "Copenhagen";
-
+$pattern = "shirt";
+$pattern = strtolower($pattern);
 foreach($products as $item){
-    $check = boyerMoore($item["prod_desc"], $pattern);
-    if ($check) {
-        echo $item["prod_name"] . '<br>';
-        continue;
-    }
-    $check = boyerMoore($item["prod_cat"], $pattern);
-    if ($check) {
-        echo $item["prod_name"] . '<br>';
-        continue;
-    }
-    $check = boyerMoore($item["prod_name"], $pattern);
-    if ($check) {
+    $prod_name = strtolower($item["prod_name"]);
+    if (boyerMoore($prod_name, $pattern)) {
         echo $item["prod_name"] . '<br>';
         continue;
     }
