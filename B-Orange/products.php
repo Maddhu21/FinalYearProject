@@ -131,44 +131,86 @@ if (isset($_GET['Search'])) {
                 <form action="products.php" method="get" class="d-flex">
                     <input type="search" name="Search" class="form-control" placeholder="Jeans" />
                     <input type="radio" style="width:100px;" name="algo" value="BM" id="algo1" checked />
-                    <label for="algo1" style="width:200px;" class="form-label">Boyer's Moore</label>
+                    <label for="algo1" style="width:200px;" class="form-label">Boyer Moore Algorithm</label>
                     <input type="radio" style="width:100px;" name="algo" value="BF" id="algo2" />
-                    <label for="algo2" style="width:200px;" class="form-label">Brute Force</label>
+                    <label for="algo2" style="width:200px;" class="form-label">Brute Force Algorithm</label>
                     <input type="submit" style="width:200px;" value="Search" class="btn" id="submit">
 
                 </form>
             </div>
         </div>
         <div class="row row-2" id="productSpace">
+            <h2>All Products</h2>
             <div class="row">
                 <?php
                 if ($displayall) {
                     //Display all product
+                    $colcount = 0;
                     foreach ($products as $item) {
                         $prod_name = $item['prod_name'];
                         $prod_image = $item['prod_image'];
                         $prod_price = $item['prod_price'];
-                        echo
-                        '
-                            <div class="card m-1" style="width: 15rem;float:left;">
-                                <div class ="image-container">
-                                    <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+
+                        if($colcount < 4){
+                            echo
+                            '
+                                <div class="col-4">
+                                    <div class="card m-1" style="width: 15rem;float:left;">
+                                        <div class ="image-container">
+                                            <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                                        </div>
+                                        <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
+                                            <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
+                                            <br>
+                                        </div>
+                                        <div class="card-body">
+                                            <a href="product_details.php?id=' . $item["prod_id"] . '" class="card-text stretched-link">RM ' . $prod_price . '</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
-                                    <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
-                                    <br>
-                                </div>
-                                <div class="card-body">
-                                    <a href="product_details.php?id=' . $item["prod_id"] . '" class="card-text stretched-link">RM ' . $prod_price . '</a>
-                                </div>
-                            </div>
-                        ';
+                            ';
+                            $colcount++;
+                        }
+                        else{
+                            //starts new row
+                            $colcount = 0;
+                            echo '</div>';
+                            echo '<div class="row">';
+                            echo    '
+                                    <div class="col-4">
+                                        <div class="card m-1" style="width: 15rem;float:left;">
+                                            <div class ="image-container">
+                                                <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                                            </div>
+                                            <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
+                                                <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
+                                                <br>
+                                            </div>
+                                            <div class="card-body">
+                                                <a href="product_details.php?id=' . $item["prod_id"] . '" class="card-text stretched-link">RM ' . $prod_price . '</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                            ';
+                            $colcount++;
+                        }
+                        
                     }
+
+                    while($colcount < 4){
+                        echo '
+                                <div class="col-4">
+                                </div>
+                            ';
+                        $colcount++;
+                    }
+
                 } else {
                     //save time
                     $start_time = hrtime(true);
                     //Retrieve records and start searching
                     $verify = 0;
+                    $colcount = 0;
                     foreach ($products as $item) {
                         $prod_name = $item['prod_name'];
                         $prod_desc = $item['prod_desc'];
@@ -179,41 +221,109 @@ if (isset($_GET['Search'])) {
                         $name= strtolower($prod_name);
                         $desc = strtolower($prod_desc);
                         $pattern = strtolower($pattern);
+
                         //Display Product
                         if ($algo == "BM" && boyerMoore($desc, $pattern) || boyerMoore($name, $pattern)) {
                             $verify++;
-                            echo '
-                                <div class="card m-1" style="width: 15rem;float:left;">
-                                    <div class ="image-container">
-                                        <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                            if ($colcount < 4) {
+                                echo
+                                '
+                                    <div class="col-4">
+                                        <div class="card m-1" style="width: 15rem;float:left;">
+                                            <div class ="image-container">
+                                                <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                                            </div>
+                                            <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
+                                                <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
+                                                <br>
+                                            </div>
+                                            <div class="card-body">
+                                                <a href="product_details.php?id=' . $item["prod_id"] . '" class="card-text stretched-link">RM ' . $prod_price . '</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
-                                        <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
-                                        <br>
+                                ';
+                                $colcount++;
+                            } else {
+                                //starts new row
+                                $colcount = 0;
+                                echo '</div>';
+                                echo '<div class="row">';
+                                echo    '
+                                        <div class="col-4">
+                                            <div class="card m-1" style="width: 15rem;float:left;">
+                                                <div class ="image-container">
+                                                    <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                                                </div>
+                                                <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
+                                                    <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
+                                                    <br>
+                                                </div>
+                                                <div class="card-body">
+                                                    <a href="product_details.php?id=' . $item["prod_id"] . '" class="card-text stretched-link">RM ' . $prod_price . '</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <a href="product_details.php?id=' . $item["prod_id"] . '" class="card-text stretched-link">RM ' . $prod_price . '</a>
-                                    </div>
-                                </div>
-                            ';
+                                ';
+                                $colcount++;
+                            }
+
                         } elseif ($algo == "BF" && bruteForce($desc, $pattern) || bruteForce($name, $pattern)) {
                             $verify++;
-                            echo '
-                                <div class="card m-1" style="width: 15rem;float:left;">
-                                    <div class ="image-container">
-                                        <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                            if ($colcount < 4) {
+                                echo
+                                '
+                                    <div class="col-4">
+                                        <div class="card m-1" style="width: 15rem;float:left;">
+                                            <div class ="image-container">
+                                                <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                                            </div>
+                                            <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
+                                                <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
+                                                <br>
+                                            </div>
+                                            <div class="card-body">
+                                                <a href="product_details.php?id=' . $item["prod_id"] . '" class="card-text stretched-link">RM ' . $prod_price . '</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
-                                        <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
-                                        <br>
-                                    </div>
-                                    <div class="card-body">
-                                        <a href="product_details.php?id=' . $item["prod_id"] . '" class="card-text stretched-link">RM ' . $prod_price . '</a>
-                                    </div>
-                                </div>
-                            ';
+                                ';
+                                $colcount++;
+                            } else {
+                                //starts new row
+                                $colcount = 0;
+                                echo '</div>';
+                                echo '<div class="row">';
+                                echo    '
+                                        <div class="col-4">
+                                            <div class="card m-1" style="width: 15rem;float:left;">
+                                                <div class ="image-container">
+                                                    <img src="' . $prod_image . '" class="card-img-top center" style="width: 200px; height:auto;"  alt="' . $prod_name . '">
+                                                </div>
+                                                <div class="card-img-overlay text-center d-flex flex-column justify-content-end">
+                                                    <h6 class="card-text bg-secondary" style="line-height: 1.5em; height: 3em; overflow:hidden;">' . $prod_name . '</h6>
+                                                    <br>
+                                                </div>
+                                                <div class="card-body">
+                                                    <a href="product_details.php?id=' . $item["prod_id"] . '" class="card-text stretched-link">RM ' . $prod_price . '</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        ';
+                                $colcount++;
+                            }
                         }
                     }
+
+                    //fill empty with col
+                    while($colcount < 4){
+                        echo '
+                                <div class="col-4">
+                                </div>
+                            ';
+                        $colcount++;
+                    }
+
                     $end_time = hrtime(true);
                     $execution_time = $end_time - $start_time;
                     if($verify > 0){

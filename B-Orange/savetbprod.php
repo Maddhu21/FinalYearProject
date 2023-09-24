@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT * FROM product";
+$sql = "SELECT * FROM product ORDER BY `prod_name` ASC";
 $result = mysqli_query($conn, $sql);
 
 #Set into JSON
@@ -8,8 +8,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     $json_array[] = $row;
 }
 
-#preview
-#echo "<pre>" .print_r($json_array,true). "</pre>";
 
 #encode
 $jsoned = json_encode($json_array);

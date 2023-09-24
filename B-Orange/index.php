@@ -37,13 +37,13 @@
         <h2 class="title">Choose your categories</h2>
             <div class="row">
                 <div class="col-3">
-                    <img src="images/category-1.jpg">
+                    <img src="images/cat1.jpg">
                 </div>
                 <div class="col-3">
-                    <img src="images/category-2.jpg">
+                    <img src="images/cat2.jpg">
                 </div>
                 <div class="col-3">
-                    <img src="images/category-3.jpg">
+                    <img src="images/cat3.jpg">
                 </div>
                 <div class="col-3">
                     <a href=""></a>

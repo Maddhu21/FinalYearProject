@@ -135,67 +135,7 @@ h4{
 .col-4:hover{
     transform: translateY(-5px);
 }
-/* Offer */
-.offer{
-    background: radial-gradient(#fff, #ffd6d6);
-    margin-top: 80px;
-    padding: 30px 0;
-}
-.col-2 .offer-img{
-    padding: 50px;
-}
-small{
-    color: #555;
-}
 
-/* Testimonial */
-.testimonial{
-    margin-top: 100px;
-}
-.testimonial .col-3{
-    text-align: center;
-    padding: 40px 20px;
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.5s;
-}
-.testimonial .col-3 img{
-    width: 50px;
-    margin-top: 20px;
-    border-radius: 50%;
-}
-.testimonial .col-3:hover{
-    transform: translateY(-10px);
-}
-.fa.fa-quote-left{
-    font-size: 34px;
-    color: #ff523b;
-}
-.col-3 p{
-    font-size: 12px;
-    margin: 12px 0;
-    color: #777;
-}
-.testimonial .col-3 h3{
-    font-weight: 600;
-    color: #555;
-    font-size: 16px;
-}
-/* Brands */
-.brands{
-    margin: 100px auto;
-}
-.col-5{
-    width: 160px;
-}
-.col-5 img{
-    width: 100%;
-    cursor: pointer;
-    filter: grayscale(100%);
-}
-.col-5 img:hover{
-    filter: grayscale(0);
-}
 /* Footer */
 .footer{
     background: black;
@@ -292,46 +232,6 @@ select:focus{
     flex: 0 0 200px; /*set width*/
     height: auto;
     margin: 5px;
-}
-
-.sidenav{
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    right: 0;
-    background-color: #111; /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-}
-
-/* The navigation menu links */
-.sidenav a{
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
 }
 
 /* Single Product */
